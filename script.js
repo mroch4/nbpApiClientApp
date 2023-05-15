@@ -7,8 +7,12 @@ var messageBox = document.getElementById('messageBox')
 var baseUrl = 'http://api.nbp.pl/api/exchangerates/rates/a'
 
 async function getCurrencyData(currency) {
-    const response = await fetch(`${baseUrl}/${currency}/?format=json`);
-    return await response.json()
+    try {
+        const response = await fetch(`${baseUrl}/${currency}/?format=json`);
+        return await response.json()
+    } catch (ex) {
+        updateMessageBox(alertTypes[0], ex.toString())
+    }
 }
 
 async function submitHandler() {
